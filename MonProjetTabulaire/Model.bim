@@ -1,0 +1,1424 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1500,
+  "model": {
+    "culture": "fr-FR",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": "MONSERVEUR\\MONINSTANCE",
+            "database": "AdventureWorksDW2019"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "Windows",
+          "kind": "SQL",
+          "path": "monserveur\\moninstance;AdventureWorksDW2019",
+          "Username": "Administrateur",
+          "EncryptConnection": false
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "Temps",
+        "dataCategory": "Time",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "int64",
+            "sourceColumn": "DateKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Date complète",
+            "dataType": "dateTime",
+            "isKey": true,
+            "sourceColumn": "FullDateAlternateKey"
+          },
+          {
+            "name": "Semaine",
+            "dataType": "int64",
+            "sourceColumn": "WeekNumberOfYear",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SpanishMonthName",
+            "dataType": "string",
+            "sourceColumn": "SpanishMonthName"
+          },
+          {
+            "name": "Mois",
+            "dataType": "string",
+            "sourceColumn": "FrenchMonthName",
+            "sortByColumn": "N° Mois"
+          },
+          {
+            "name": "N° Mois",
+            "dataType": "int64",
+            "sourceColumn": "MonthNumberOfYear",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Trimestre",
+            "dataType": "int64",
+            "sourceColumn": "CalendarQuarter",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Année",
+            "dataType": "int64",
+            "sourceColumn": "CalendarYear",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Semestre",
+            "dataType": "int64",
+            "sourceColumn": "CalendarSemester",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Trimestre fiscal",
+            "dataType": "int64",
+            "sourceColumn": "FiscalQuarter",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Année fiscale",
+            "dataType": "int64",
+            "sourceColumn": "FiscalYear",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Semestre fiscal",
+            "dataType": "int64",
+            "sourceColumn": "FiscalSemester",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                "    dbo_DimDate = Source{[Schema=\"dbo\",Item=\"DimDate\"]}[Data],",
+                "    #\"Colonnes supprimées\" = Table.RemoveColumns(dbo_DimDate,{\"DayNumberOfWeek\", \"EnglishDayNameOfWeek\", \"SpanishDayNameOfWeek\", \"FrenchDayNameOfWeek\", \"DayNumberOfMonth\", \"DayNumberOfYear\", \"EnglishMonthName\", \"FactCallCenter\", \"FactCurrencyRate\", \"FactFinance\", \"FactInternetSales(DateKey)\", \"FactInternetSales(DateKey) 2\", \"FactInternetSales(DateKey) 3\", \"FactProductInventory\", \"FactSalesQuota\", \"FactSurveyResponse\"}),",
+                "    #\"Premières lignes supprimées\" = Table.Skip(#\"Colonnes supprimées\",4748)",
+                "in",
+                "    #\"Premières lignes supprimées\""
+              ]
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Calendrier fiscal",
+            "levels": [
+              {
+                "name": "Année fiscale",
+                "ordinal": 0,
+                "column": "Année fiscale"
+              },
+              {
+                "name": "Semestre fiscal",
+                "ordinal": 1,
+                "column": "Semestre fiscal"
+              },
+              {
+                "name": "Trimestre fiscal",
+                "ordinal": 2,
+                "column": "Trimestre fiscal"
+              },
+              {
+                "name": "Mois",
+                "ordinal": 3,
+                "column": "Mois"
+              },
+              {
+                "name": "Date",
+                "ordinal": 4,
+                "column": "Date"
+              }
+            ]
+          },
+          {
+            "name": "Calendrier",
+            "levels": [
+              {
+                "name": "Année",
+                "ordinal": 0,
+                "column": "Année"
+              },
+              {
+                "name": "Semestre",
+                "ordinal": 1,
+                "column": "Semestre"
+              },
+              {
+                "name": "Trimestre",
+                "ordinal": 2,
+                "column": "Trimestre"
+              },
+              {
+                "name": "Mois",
+                "ordinal": 3,
+                "column": "Mois"
+              },
+              {
+                "name": "Semaine",
+                "ordinal": 4,
+                "column": "Semaine"
+              },
+              {
+                "name": "Date complète",
+                "ordinal": 5,
+                "column": "Date complète"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Produits",
+        "columns": [
+          {
+            "name": "ProductSubcategoryKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ProductSubcategoryKey"
+          },
+          {
+            "name": "EnglishProductSubcategoryName",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "EnglishProductSubcategoryName"
+          },
+          {
+            "name": "Sous Cat Produits",
+            "dataType": "string",
+            "sourceColumn": "FrenchProductSubcategoryName"
+          },
+          {
+            "name": "ProductCategoryKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ProductCategoryKey"
+          },
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ProductKey"
+          },
+          {
+            "name": "EnglishProductName",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "EnglishProductName"
+          },
+          {
+            "name": "Libellés Produits",
+            "dataType": "string",
+            "sourceColumn": "FrenchProductName"
+          },
+          {
+            "name": "EnglishProductCategoryName",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "EnglishProductCategoryName"
+          },
+          {
+            "name": "Catégories Produits",
+            "dataType": "string",
+            "sourceColumn": "FrenchProductCategoryName"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                "    dbo_DimProductSubcategory = Source{[Schema=\"dbo\",Item=\"DimProductSubcategory\"]}[Data],",
+                "    #\"Colonnes supprimées\" = Table.RemoveColumns(dbo_DimProductSubcategory,{\"ProductSubcategoryAlternateKey\", \"SpanishProductSubcategoryName\"}),",
+                "    #\"DimProduct développé\" = Table.ExpandTableColumn(#\"Colonnes supprimées\", \"DimProduct\", {\"ProductKey\", \"EnglishProductName\", \"FrenchProductName\"}, {\"ProductKey\", \"EnglishProductName\", \"FrenchProductName\"}),",
+                "    #\"DimProductCategory développé\" = Table.ExpandRecordColumn(#\"DimProduct développé\", \"DimProductCategory\", {\"EnglishProductCategoryName\", \"FrenchProductCategoryName\"}, {\"EnglishProductCategoryName\", \"FrenchProductCategoryName\"})",
+                "in",
+                "    #\"DimProductCategory développé\""
+              ]
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Produits",
+            "levels": [
+              {
+                "name": "Catégories Produits",
+                "ordinal": 0,
+                "column": "Catégories Produits"
+              },
+              {
+                "name": "Sous Cat Produits",
+                "ordinal": 1,
+                "column": "Sous Cat Produits"
+              },
+              {
+                "name": "Libellés Produits",
+                "ordinal": 2,
+                "column": "Libellés Produits"
+              }
+            ]
+          },
+          {
+            "name": "Products",
+            "levels": [
+              {
+                "name": "EnglishProductCategoryName",
+                "ordinal": 0,
+                "column": "EnglishProductCategoryName"
+              },
+              {
+                "name": "EnglishProductSubcategoryName",
+                "ordinal": 1,
+                "column": "EnglishProductSubcategoryName"
+              },
+              {
+                "name": "EnglishProductName",
+                "ordinal": 2,
+                "column": "EnglishProductName"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Régions",
+        "columns": [
+          {
+            "name": "SalesTerritoryKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "SalesTerritoryKey"
+          },
+          {
+            "name": "Régions",
+            "dataType": "string",
+            "sourceColumn": "SalesTerritoryRegion"
+          },
+          {
+            "name": "Pays",
+            "dataType": "string",
+            "sourceColumn": "SalesTerritoryCountry"
+          },
+          {
+            "name": "Groupes Régions",
+            "dataType": "string",
+            "sourceColumn": "SalesTerritoryGroup"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                "    dbo_DimSalesTerritory = Source{[Schema=\"dbo\",Item=\"DimSalesTerritory\"]}[Data],",
+                "    #\"Autres colonnes supprimées\" = Table.SelectColumns(dbo_DimSalesTerritory,{\"SalesTerritoryKey\", \"SalesTerritoryRegion\", \"SalesTerritoryCountry\", \"SalesTerritoryGroup\", \"SalesTerritoryImage\"})",
+                "in",
+                "    #\"Autres colonnes supprimées\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Revendeurs",
+        "columns": [
+          {
+            "name": "ResellerKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ResellerKey"
+          },
+          {
+            "name": "Activités",
+            "dataType": "string",
+            "sourceColumn": "BusinessType"
+          },
+          {
+            "name": "Revendeurs",
+            "dataType": "string",
+            "sourceColumn": "ResellerName"
+          },
+          {
+            "name": "AddressLine1",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "AddressLine1"
+          },
+          {
+            "name": "AddressLine2",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "AddressLine2"
+          },
+          {
+            "name": "SalesTerritoryKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "SalesTerritoryKey"
+          },
+          {
+            "type": "calculated",
+            "name": "Adresse",
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "expression": "IF([AddressLine2] =\"\", [Revendeurs] & \" \" & [AddressLine1],[Revendeurs] & \" \" & [AddressLine1] & \" \"  & [AddressLine2])"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                "    dbo_DimReseller = Source{[Schema=\"dbo\",Item=\"DimReseller\"]}[Data],",
+                "    #\"Autres colonnes supprimées\" = Table.SelectColumns(dbo_DimReseller,{\"ResellerKey\", \"BusinessType\", \"ResellerName\", \"AddressLine1\", \"AddressLine2\", \"DimGeography\"}),",
+                "    #\"DimGeography développé\" = Table.ExpandRecordColumn(#\"Autres colonnes supprimées\", \"DimGeography\", {\"DimSalesTerritory\"}, {\"DimSalesTerritory\"}),",
+                "    #\"DimSalesTerritory développé\" = Table.ExpandRecordColumn(#\"DimGeography développé\", \"DimSalesTerritory\", {\"SalesTerritoryKey\"}, {\"SalesTerritoryKey\"})",
+                "in",
+                "    #\"DimSalesTerritory développé\""
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Ventes",
+        "isHidden": true,
+        "columns": [
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "sourceColumn": "ProductKey"
+          },
+          {
+            "name": "Date cde",
+            "dataType": "int64",
+            "sourceColumn": "OrderDateKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Date échéance",
+            "dataType": "int64",
+            "sourceColumn": "DueDateKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Date expédition",
+            "dataType": "int64",
+            "sourceColumn": "ShipDateKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ResellerKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "ResellerKey"
+          },
+          {
+            "name": "N° cde",
+            "dataType": "string",
+            "sourceColumn": "SalesOrderNumber"
+          },
+          {
+            "name": "N° ligne cde",
+            "dataType": "int64",
+            "sourceColumn": "SalesOrderLineNumber",
+            "formatString": "#,0",
+            "summarizeBy": "count"
+          },
+          {
+            "name": "Qté commandée",
+            "dataType": "int64",
+            "sourceColumn": "OrderQuantity",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Coûts produits",
+            "dataType": "decimal",
+            "sourceColumn": "TotalProductCost"
+          },
+          {
+            "name": "Montant ventes HT",
+            "dataType": "decimal",
+            "sourceColumn": "SalesAmount"
+          },
+          {
+            "name": "Taxes",
+            "dataType": "decimal",
+            "sourceColumn": "TaxAmt"
+          },
+          {
+            "name": "Transports",
+            "dataType": "decimal",
+            "sourceColumn": "Freight"
+          },
+          {
+            "name": "OrderDate",
+            "dataType": "dateTime",
+            "sourceColumn": "OrderDate"
+          },
+          {
+            "name": "DueDate",
+            "dataType": "dateTime",
+            "sourceColumn": "DueDate"
+          },
+          {
+            "name": "ShipDate",
+            "dataType": "dateTime",
+            "sourceColumn": "ShipDate"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Ventes2018",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                "    dbo_FactResellerSales = Source{[Schema=\"dbo\",Item=\"FactResellerSales\"]}[Data],",
+                "    #\"Autres colonnes supprimées\" = Table.SelectColumns(dbo_FactResellerSales,{\"ProductKey\", \"OrderDateKey\", \"DueDateKey\", \"ShipDateKey\", \"ResellerKey\", \"SalesOrderNumber\", \"SalesOrderLineNumber\", \"OrderQuantity\", \"TotalProductCost\", \"SalesAmount\", \"TaxAmt\", \"Freight\", \"OrderDate\", \"DueDate\", \"ShipDate\"}),",
+                "    #\"Lignes filtrées\" = Table.SelectRows(#\"Autres colonnes supprimées\", each [OrderDateKey] >= 20180101 and [OrderDateKey] <= 20181231)",
+                "in",
+                "    #\"Lignes filtrées\""
+              ]
+            }
+          },
+          {
+            "name": "Ventes2019",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                "    dbo_FactResellerSales = Source{[Schema=\"dbo\",Item=\"FactResellerSales\"]}[Data],",
+                "    #\"Autres colonnes supprimées\" = Table.SelectColumns(dbo_FactResellerSales,{\"ProductKey\", \"OrderDateKey\", \"DueDateKey\", \"ShipDateKey\", \"ResellerKey\", \"SalesOrderNumber\", \"SalesOrderLineNumber\", \"OrderQuantity\", \"TotalProductCost\", \"SalesAmount\", \"TaxAmt\", \"Freight\", \"OrderDate\", \"DueDate\", \"ShipDate\"}),",
+                "    #\"Lignes filtrées\" = Table.SelectRows(#\"Autres colonnes supprimées\", each [OrderDateKey] >= 20190101 and [OrderDateKey] <= 20191231)",
+                "in",
+                "    #\"Lignes filtrées\""
+              ]
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>let",
+                  "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                  "    dbo_FactResellerSales = Source{[Schema=\"dbo\",Item=\"FactResellerSales\"]}[Data],",
+                  "    #\"Autres colonnes supprimées\" = Table.SelectColumns(dbo_FactResellerSales,{\"ProductKey\", \"OrderDateKey\", \"DueDateKey\", \"ShipDateKey\", \"ResellerKey\", \"SalesOrderNumber\", \"SalesOrderLineNumber\", \"OrderQuantity\", \"TotalProductCost\", \"SalesAmount\", \"TaxAmt\", \"Freight\", \"OrderDate\", \"DueDate\", \"ShipDate\"}),",
+                  "    #\"Lignes filtrées\" = Table.SelectRows(#\"Autres colonnes supprimées\", each [OrderDateKey] >= 20190101 and [OrderDateKey] <= 20191231)",
+                  "in",
+                  "    #\"Lignes filtrées\"</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Ventes2020",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                "    dbo_FactResellerSales = Source{[Schema=\"dbo\",Item=\"FactResellerSales\"]}[Data],",
+                "    #\"Autres colonnes supprimées\" = Table.SelectColumns(dbo_FactResellerSales,{\"ProductKey\", \"OrderDateKey\", \"DueDateKey\", \"ShipDateKey\", \"ResellerKey\", \"SalesOrderNumber\", \"SalesOrderLineNumber\", \"OrderQuantity\", \"TotalProductCost\", \"SalesAmount\", \"TaxAmt\", \"Freight\", \"OrderDate\", \"DueDate\", \"ShipDate\"}),",
+                "    #\"Lignes filtrées\" = Table.SelectRows(#\"Autres colonnes supprimées\", each [OrderDateKey] >= 20200101 and [OrderDateKey] <= 20201231)",
+                "in",
+                "    #\"Lignes filtrées\""
+              ]
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>let",
+                  "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                  "    dbo_FactResellerSales = Source{[Schema=\"dbo\",Item=\"FactResellerSales\"]}[Data],",
+                  "    #\"Autres colonnes supprimées\" = Table.SelectColumns(dbo_FactResellerSales,{\"ProductKey\", \"OrderDateKey\", \"DueDateKey\", \"ShipDateKey\", \"ResellerKey\", \"SalesOrderNumber\", \"SalesOrderLineNumber\", \"OrderQuantity\", \"TotalProductCost\", \"SalesAmount\", \"TaxAmt\", \"Freight\", \"OrderDate\", \"DueDate\", \"ShipDate\"}),",
+                  "    #\"Lignes filtrées\" = Table.SelectRows(#\"Autres colonnes supprimées\", each [OrderDateKey] >= 20200101 and [OrderDateKey] <= 20201231)",
+                  "in",
+                  "    #\"Lignes filtrées\"</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Ventes2021",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                "    dbo_FactResellerSales = Source{[Schema=\"dbo\",Item=\"FactResellerSales\"]}[Data],",
+                "    #\"Autres colonnes supprimées\" = Table.SelectColumns(dbo_FactResellerSales,{\"ProductKey\", \"OrderDateKey\", \"DueDateKey\", \"ShipDateKey\", \"ResellerKey\", \"SalesOrderNumber\", \"SalesOrderLineNumber\", \"OrderQuantity\", \"TotalProductCost\", \"SalesAmount\", \"TaxAmt\", \"Freight\", \"OrderDate\", \"DueDate\", \"ShipDate\"}),",
+                "    #\"Lignes filtrées\" = Table.SelectRows(#\"Autres colonnes supprimées\", each [OrderDateKey] >= 20210101)",
+                "in",
+                "    #\"Lignes filtrées\""
+              ]
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>let",
+                  "    Source = #\"SQL/MONSERVEUR\\MONINSTANCE;AdventureWorksDW2019\",",
+                  "    dbo_FactResellerSales = Source{[Schema=\"dbo\",Item=\"FactResellerSales\"]}[Data],",
+                  "    #\"Autres colonnes supprimées\" = Table.SelectColumns(dbo_FactResellerSales,{\"ProductKey\", \"OrderDateKey\", \"DueDateKey\", \"ShipDateKey\", \"ResellerKey\", \"SalesOrderNumber\", \"SalesOrderLineNumber\", \"OrderQuantity\", \"TotalProductCost\", \"SalesAmount\", \"TaxAmt\", \"Freight\", \"OrderDate\", \"DueDate\", \"ShipDate\"}),",
+                  "    #\"Lignes filtrées\" = Table.SelectRows(#\"Autres colonnes supprimées\", each [OrderDateKey] >= 20210101)",
+                  "in",
+                  "    #\"Lignes filtrées\"</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "measures": [
+          {
+            "name": "Marge Brute",
+            "expression": "SUM(Ventes[Montant ventes HT])-SUM(Ventes[Coûts produits])",
+            "formatString": "#,0.00 \"€\";-#,0.00 \"€\";#,0.00 \"€\"",
+            "displayFolder": "Marge",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Currency\" Accuracy=\"2\"><Currency LCID=\"1036\" DisplayName=\"€ Français (France)\" Symbol=\"€\" PositivePattern=\"3\" NegativePattern=\"8\" /></Format>"
+              }
+            ]
+          },
+          {
+            "name": "Nb ligne cde",
+            "expression": "COUNTA([N° ligne cde])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Taux de marge",
+            "expression": "[Marge Brute] / SUM(Ventes[Montant ventes HT])",
+            "formatString": "0.00 %;-0.00 %;0.00 %",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "Taux de marque",
+            "expression": "DIVIDE([Marge Brute], SUM(Ventes[Coûts produits]))",
+            "formatString": "0.00 %;-0.00 %;0.00 %",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "Coeff marge",
+            "expression": "DIVIDE(SUM(Ventes[Montant ventes HT]),SUM(Ventes[Coûts produits]))",
+            "formatString": "0.00 %;-0.00 %;0.00 %",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "YTD Ventes HT",
+            "expression": " TOTALYTD(SUM(Ventes[Montant ventes HT]),Temps[Date complète])",
+            "formatString": "#,0.00 \"€\";-#,0.00 \"€\";#,0.00 \"€\"",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Currency\" Accuracy=\"2\"><Currency LCID=\"1036\" DisplayName=\"€ Français (France)\" Symbol=\"€\" PositivePattern=\"3\" NegativePattern=\"8\" /></Format>"
+              }
+            ]
+          },
+          {
+            "name": "Mt ventes HT exp",
+            "expression": " CALCULATE(SUM(Ventes[Montant ventes HT]), USERELATIONSHIP(Temps[Date],Ventes[Date expédition]) )",
+            "formatString": "#,0.00 \"€\";-#,0.00 \"€\";#,0.00 \"€\"",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Currency\" Accuracy=\"2\"><Currency LCID=\"1036\" DisplayName=\"€ Français (France)\" Symbol=\"€\" PositivePattern=\"3\" NegativePattern=\"8\" /></Format>"
+              }
+            ]
+          },
+          {
+            "name": "YTD vtes HT exp",
+            "expression": " TOTALYTD([Mt ventes HT exp],Temps[Date complète])",
+            "formatString": "#,0.00 \"€\";-#,0.00 \"€\";#,0.00 \"€\"",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Currency\" Accuracy=\"2\"><Currency LCID=\"1036\" DisplayName=\"€ Français (France)\" Symbol=\"€\" PositivePattern=\"3\" NegativePattern=\"8\" /></Format>"
+              }
+            ]
+          },
+          {
+            "name": "Ratio Ventes produits",
+            "expression": "DIVIDE(SUM(Ventes[Montant ventes HT]),CALCULATE(SUM(Ventes[Montant ventes HT]),ALL(Produits[Catégories Produits])),0)",
+            "formatString": "0.00 %;-0.00 %;0.00 %"
+          },
+          {
+            "name": "KPI Profit Objectif",
+            "expression": " SWITCH(SELECTEDVALUE('Régions'[Régions]),\"Canada\",0.34, \"Germany\", 0.36, \"France\", 0.32, 0.30)",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "KPI Profit",
+            "expression": " [Taux marge nette]/[KPI Profit Objectif]",
+            "displayFolder": "Marge",
+            "kpi": {
+              "targetExpression": "1,5",
+              "statusGraphic": "Traffic Light - Single",
+              "statusExpression": [
+                "var x='Ventes'[KPI Profit] return",
+                "            if(ISBLANK(x),BLANK(),",
+                "                    If(x<1.3,-1,",
+                "\t                If(x<1.5,0,1)",
+                "                )",
+                "            )",
+                "            "
+              ],
+              "annotations": [
+                {
+                  "name": "GoalType",
+                  "value": "StaticValue"
+                },
+                {
+                  "name": "KpiStatusType",
+                  "value": "Linear"
+                },
+                {
+                  "name": "KpiThresholdType",
+                  "value": "Absolute"
+                },
+                {
+                  "name": "KpiThresholdOrdering",
+                  "value": "Ascending"
+                },
+                {
+                  "name": "KpiThresholdCount",
+                  "value": "2"
+                },
+                {
+                  "name": "KpiThreshold_0",
+                  "value": "1.3"
+                },
+                {
+                  "name": "KpiThreshold_1",
+                  "value": "1.5"
+                }
+              ]
+            }
+          },
+          {
+            "name": "Taux marge nette",
+            "expression": " ([Marge Brute] + SUM(Ventes[Taxes]) + SUM(Ventes[Transports]))/SUM(Ventes[Montant ventes HT])",
+            "formatString": "0.00 %;-0.00 %;0.00 %",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "KPI Profit Tendance",
+            "expression": [
+              "",
+              "IF ([Taux marge nette]",
+              "        > CALCULATE ([Taux marge nette],",
+              "            PARALLELPERIOD ( Temps[Date complète], -1, YEAR )",
+              "        ),",
+              "    1,",
+              "    IF ([Taux marge nette]",
+              "            < CALCULATE ([Taux marge nette],",
+              "                PARALLELPERIOD ( Temps[Date complète], -1, YEAR )",
+              "            ),",
+              "        -1,",
+              "        0",
+              "    )",
+              ")",
+              ""
+            ],
+            "displayFolder": "Marge",
+            "kpi": {
+              "targetExpression": "1",
+              "statusGraphic": "Road Signs",
+              "statusExpression": [
+                "var x='Ventes'[KPI Profit Tendance] return",
+                "            if(ISBLANK(x),BLANK(),",
+                "                    If(x<-1,-1,",
+                "\t                If(x<1,0,1)",
+                "                )",
+                "            )",
+                "            "
+              ],
+              "annotations": [
+                {
+                  "name": "GoalType",
+                  "value": "StaticValue"
+                },
+                {
+                  "name": "KpiStatusType",
+                  "value": "Linear"
+                },
+                {
+                  "name": "KpiThresholdType",
+                  "value": "Absolute"
+                },
+                {
+                  "name": "KpiThresholdOrdering",
+                  "value": "Ascending"
+                },
+                {
+                  "name": "KpiThresholdCount",
+                  "value": "2"
+                },
+                {
+                  "name": "KpiThreshold_0",
+                  "value": "-1"
+                },
+                {
+                  "name": "KpiThreshold_1",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          {
+            "name": "Qté expédiée",
+            "expression": " CALCULATE(SUM(Ventes[Qté commandée]),USERELATIONSHIP(Temps[Date],Ventes[Date expédition]))",
+            "formatString": "0"
+          },
+          {
+            "name": "MT vtes N-1",
+            "expression": [
+              " CALCULATE(SUM(Ventes[Montant ventes HT]),PARALLELPERIOD(Temps[Date complète],-1,YEAR))",
+              ""
+            ],
+            "formatString": "#,0.00 \"€\";-#,0.00 \"€\";#,0.00 \"€\"",
+            "annotations": [
+              {
+                "name": "Format",
+                "value": "<Format Format=\"Currency\" Accuracy=\"2\"><Currency LCID=\"1036\" DisplayName=\"€ Français (France)\" Symbol=\"€\" PositivePattern=\"3\" NegativePattern=\"8\" /></Format>"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "5a50d8f0-e952-418d-96a4-9367e5c1b03f",
+        "fromTable": "Ventes",
+        "fromColumn": "Date échéance",
+        "toTable": "Temps",
+        "toColumn": "Date",
+        "isActive": false
+      },
+      {
+        "name": "c2c2e128-a2d1-4b41-bb7d-76e49d35c0ff",
+        "fromTable": "Ventes",
+        "fromColumn": "Date expédition",
+        "toTable": "Temps",
+        "toColumn": "Date",
+        "isActive": false
+      },
+      {
+        "name": "3bb54467-7c77-403c-ac79-1bb26fe9f5b2",
+        "fromTable": "Ventes",
+        "fromColumn": "Date cde",
+        "toTable": "Temps",
+        "toColumn": "Date"
+      },
+      {
+        "name": "811bd967-3699-4f0d-af16-23dfcd46f328",
+        "fromTable": "Ventes",
+        "fromColumn": "ProductKey",
+        "toTable": "Produits",
+        "toColumn": "ProductKey"
+      },
+      {
+        "name": "ef1d67d1-261f-43bd-bc12-bc0f9b2ecf8f",
+        "fromTable": "Ventes",
+        "fromColumn": "ResellerKey",
+        "toTable": "Revendeurs",
+        "toColumn": "ResellerKey"
+      },
+      {
+        "name": "a48d9b58-254e-4545-b6d1-43b121dd3ce1",
+        "fromTable": "Revendeurs",
+        "fromColumn": "SalesTerritoryKey",
+        "toTable": "Régions",
+        "toColumn": "SalesTerritoryKey"
+      }
+    ],
+    "cultures": [
+      {
+        "name": "en-US",
+        "translations": {
+          "model": {
+            "name": "Model",
+            "tables": [
+              {
+                "name": "Temps",
+                "translatedCaption": "Time",
+                "translatedDescription": "Time containt the date data like day, month, quarter, week",
+                "columns": [
+                  {
+                    "name": "Date complète",
+                    "translatedCaption": "Complete date",
+                    "translatedDescription": "date format day month and year like 01/01/2018 00:00:00"
+                  },
+                  {
+                    "name": "Semaine",
+                    "translatedCaption": "Week",
+                    "translatedDescription": "Number of week - example : 3 "
+                  },
+                  {
+                    "name": "Mois",
+                    "translatedCaption": "Month",
+                    "translatedDescription": "Whole month - january "
+                  },
+                  {
+                    "name": "N° Mois",
+                    "translatedCaption": "Number of month"
+                  },
+                  {
+                    "name": "Trimestre",
+                    "translatedCaption": "Quarter"
+                  },
+                  {
+                    "name": "Année",
+                    "translatedCaption": "Year"
+                  },
+                  {
+                    "name": "Semestre",
+                    "translatedCaption": "Semester"
+                  },
+                  {
+                    "name": "Trimestre fiscal",
+                    "translatedCaption": "Fiscal quarter"
+                  },
+                  {
+                    "name": "Année fiscale",
+                    "translatedCaption": "Fiscal Year"
+                  },
+                  {
+                    "name": "Semestre fiscal",
+                    "translatedCaption": "Fiscal semester"
+                  }
+                ],
+                "hierarchies": [
+                  {
+                    "name": "Calendrier fiscal",
+                    "translatedCaption": "Fiscal calendar",
+                    "levels": [
+                      {
+                        "name": "Année fiscale",
+                        "translatedCaption": "Fiscal year"
+                      },
+                      {
+                        "name": "Semestre fiscal",
+                        "translatedCaption": "Fiscal semester"
+                      },
+                      {
+                        "name": "Trimestre fiscal",
+                        "translatedCaption": "Fiscal quarter"
+                      },
+                      {
+                        "name": "Mois",
+                        "translatedCaption": "Month"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Calendrier",
+                    "translatedCaption": "Calendar",
+                    "levels": [
+                      {
+                        "name": "Année",
+                        "translatedCaption": "Year"
+                      },
+                      {
+                        "name": "Semestre",
+                        "translatedCaption": "Semester"
+                      },
+                      {
+                        "name": "Trimestre",
+                        "translatedCaption": "Quarter"
+                      },
+                      {
+                        "name": "Mois",
+                        "translatedCaption": "Month"
+                      },
+                      {
+                        "name": "Semaine",
+                        "translatedCaption": "Week"
+                      },
+                      {
+                        "name": "Date complète",
+                        "translatedCaption": "Complete date"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Produits",
+                "translatedCaption": "Products"
+              },
+              {
+                "name": "Régions",
+                "translatedCaption": "Regions",
+                "columns": [
+                  {
+                    "name": "Régions",
+                    "translatedCaption": "Regions"
+                  },
+                  {
+                    "name": "Pays",
+                    "translatedCaption": "Country"
+                  },
+                  {
+                    "name": "Groupes Régions",
+                    "translatedCaption": "Groups Regions"
+                  }
+                ]
+              },
+              {
+                "name": "Revendeurs",
+                "translatedCaption": "Reseller",
+                "columns": [
+                  {
+                    "name": "Activités",
+                    "translatedCaption": "Activity"
+                  },
+                  {
+                    "name": "Revendeurs",
+                    "translatedCaption": "Resellers"
+                  },
+                  {
+                    "name": "Adresse",
+                    "translatedCaption": "Adress"
+                  }
+                ]
+              },
+              {
+                "name": "Ventes",
+                "translatedCaption": "Sales",
+                "columns": [
+                  {
+                    "name": "Date cde",
+                    "translatedCaption": "Order date"
+                  },
+                  {
+                    "name": "Date échéance",
+                    "translatedCaption": "Due date"
+                  },
+                  {
+                    "name": "Date expédition",
+                    "translatedCaption": "Ship date"
+                  },
+                  {
+                    "name": "N° cde",
+                    "translatedCaption": "Order number"
+                  },
+                  {
+                    "name": "N° ligne cde",
+                    "translatedCaption": "Order line number"
+                  },
+                  {
+                    "name": "Qté commandée",
+                    "translatedCaption": "Order quantity"
+                  },
+                  {
+                    "name": "Coûts produits",
+                    "translatedCaption": "Products costs"
+                  },
+                  {
+                    "name": "Montant ventes HT",
+                    "translatedCaption": "Sales amount"
+                  },
+                  {
+                    "name": "Transports",
+                    "translatedCaption": "Freight"
+                  }
+                ],
+                "measures": [
+                  {
+                    "name": "Marge Brute",
+                    "translatedCaption": "Gross margin",
+                    "translatedDisplayFolder": "Margin"
+                  },
+                  {
+                    "name": "Nb ligne cde",
+                    "translatedCaption": "Order lines count"
+                  },
+                  {
+                    "name": "Taux de marge",
+                    "translatedCaption": "Margin rate",
+                    "translatedDisplayFolder": "Margin"
+                  },
+                  {
+                    "name": "Taux de marque",
+                    "translatedCaption": "Brand rate",
+                    "translatedDisplayFolder": "Margin"
+                  },
+                  {
+                    "name": "Coeff marge",
+                    "translatedCaption": "Margin factor",
+                    "translatedDisplayFolder": "Margin"
+                  },
+                  {
+                    "name": "YTD Ventes HT",
+                    "translatedCaption": "YTD sales"
+                  },
+                  {
+                    "name": "Mt ventes HT exp",
+                    "translatedCaption": "Shipped sales amount"
+                  },
+                  {
+                    "name": "YTD vtes HT exp",
+                    "translatedCaption": "Shipped YTD sales"
+                  },
+                  {
+                    "name": "Ratio Ventes produits",
+                    "translatedCaption": "Product sales ratio"
+                  },
+                  {
+                    "name": "KPI Profit Objectif",
+                    "translatedCaption": "KPI Profit Objective",
+                    "translatedDisplayFolder": "Margin"
+                  },
+                  {
+                    "name": "KPI Profit",
+                    "translatedDisplayFolder": "Margin"
+                  },
+                  {
+                    "name": "Taux marge nette",
+                    "translatedCaption": "Net margin rate",
+                    "translatedDisplayFolder": "Margin"
+                  },
+                  {
+                    "name": "KPI Profit Tendance",
+                    "translatedCaption": "Trend Profit KPI",
+                    "translatedDisplayFolder": "Margin"
+                  },
+                  {
+                    "name": "Qté expédiée",
+                    "translatedCaption": "Shipped quantity"
+                  },
+                  {
+                    "name": "MT vtes N-1",
+                    "translatedCaption": "Sales amount N-1"
+                  }
+                ]
+              }
+            ],
+            "perspectives": [
+              {
+                "name": "Logistique",
+                "translatedCaption": "Logistics"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "perspectives": [
+      {
+        "name": "Logistique",
+        "tables": [
+          {
+            "name": "Produits",
+            "columns": [
+              {
+                "name": "Catégories Produits"
+              },
+              {
+                "name": "EnglishProductCategoryName"
+              },
+              {
+                "name": "EnglishProductName"
+              },
+              {
+                "name": "EnglishProductSubcategoryName"
+              },
+              {
+                "name": "Libellés Produits"
+              },
+              {
+                "name": "ProductCategoryKey"
+              },
+              {
+                "name": "ProductKey"
+              },
+              {
+                "name": "ProductSubcategoryKey"
+              },
+              {
+                "name": "Sous Cat Produits"
+              }
+            ]
+          },
+          {
+            "name": "Régions",
+            "columns": [
+              {
+                "name": "Groupes Régions"
+              },
+              {
+                "name": "Pays"
+              },
+              {
+                "name": "Régions"
+              },
+              {
+                "name": "SalesTerritoryKey"
+              }
+            ]
+          },
+          {
+            "name": "Revendeurs",
+            "columns": [
+              {
+                "name": "Activités"
+              },
+              {
+                "name": "AddressLine1"
+              },
+              {
+                "name": "AddressLine2"
+              },
+              {
+                "name": "Adresse"
+              },
+              {
+                "name": "ResellerKey"
+              },
+              {
+                "name": "Revendeurs"
+              },
+              {
+                "name": "SalesTerritoryKey"
+              }
+            ]
+          },
+          {
+            "name": "Temps",
+            "columns": [
+              {
+                "name": "Année"
+              },
+              {
+                "name": "Année fiscale"
+              },
+              {
+                "name": "Date"
+              },
+              {
+                "name": "Date complète"
+              },
+              {
+                "name": "Mois"
+              },
+              {
+                "name": "N° Mois"
+              },
+              {
+                "name": "Semaine"
+              },
+              {
+                "name": "Semestre"
+              },
+              {
+                "name": "Semestre fiscal"
+              },
+              {
+                "name": "SpanishMonthName"
+              },
+              {
+                "name": "Trimestre"
+              },
+              {
+                "name": "Trimestre fiscal"
+              }
+            ],
+            "hierarchies": [
+              {
+                "name": "Calendrier"
+              },
+              {
+                "name": "Calendrier fiscal"
+              }
+            ]
+          },
+          {
+            "name": "Ventes",
+            "columns": [
+              {
+                "name": "Transports"
+              },
+              {
+                "name": "N° ligne cde"
+              },
+              {
+                "name": "Qté commandée"
+              },
+              {
+                "name": "Coûts produits"
+              },
+              {
+                "name": "Date cde"
+              },
+              {
+                "name": "Date expédition"
+              },
+              {
+                "name": "N° cde"
+              },
+              {
+                "name": "OrderDate"
+              },
+              {
+                "name": "ShipDate"
+              }
+            ],
+            "measures": [
+              {
+                "name": "KPI Profit Objectif"
+              },
+              {
+                "name": "Nb ligne cde"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "roles": [
+      {
+        "name": "DirCom",
+        "description": "Accès pour tous les directeurs commerciaux de l'entreprise",
+        "modelPermission": "read"
+      },
+      {
+        "name": "CGEurope",
+        "description": "Accès au service contrôle de gestion européen",
+        "modelPermission": "read",
+        "tablePermissions": [
+          {
+            "name": "Régions",
+            "filterExpression": "'Régions'[SalesTerritoryKey] IN {6,7,8}"
+          },
+          {
+            "name": "Ventes",
+            "columnPermissions": [
+              {
+                "name": "Coûts produits",
+                "metadataPermission": "none"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Logistique",
+        "description": "Accès aux services logistique de toute la société",
+        "modelPermission": "read",
+        "tablePermissions": [
+          {
+            "name": "Ventes",
+            "columnPermissions": [
+              {
+                "name": "Qté commandée"
+              },
+              {
+                "name": "N° ligne cde"
+              },
+              {
+                "name": "Coûts produits"
+              },
+              {
+                "name": "Transports",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "ProductKey",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "Date cde",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "Date échéance",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "Date expédition",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "ResellerKey",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "N° cde",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "Montant ventes HT",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "Taxes",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "OrderDate",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "DueDate",
+                "metadataPermission": "none"
+              },
+              {
+                "name": "ShipDate",
+                "metadataPermission": "none"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "600"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}

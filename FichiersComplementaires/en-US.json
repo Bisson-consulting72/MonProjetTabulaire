@@ -1,0 +1,823 @@
+{
+  "referenceCulture": {
+  "name": "db",
+  "model": {
+    "tables": [
+      {
+        "name": "Temps",
+        "columns": [
+          {
+            "name": "Date"
+          },
+          {
+            "name": "Date complète"
+          },
+          {
+            "name": "Semaine"
+          },
+          {
+            "name": "SpanishMonthName"
+          },
+          {
+            "name": "Mois"
+          },
+          {
+            "name": "N° Mois"
+          },
+          {
+            "name": "Trimestre"
+          },
+          {
+            "name": "Année"
+          },
+          {
+            "name": "Semestre"
+          },
+          {
+            "name": "Trimestre fiscal"
+          },
+          {
+            "name": "Année fiscale"
+          },
+          {
+            "name": "Semestre fiscal"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Calendrier fiscal",
+            "levels": [
+              {
+                "name": "Année fiscale"
+              },
+              {
+                "name": "Semestre fiscal"
+              },
+              {
+                "name": "Trimestre fiscal"
+              },
+              {
+                "name": "Mois"
+              },
+              {
+                "name": "Date"
+              }
+            ]
+          },
+          {
+            "name": "Calendrier",
+            "levels": [
+              {
+                "name": "Année"
+              },
+              {
+                "name": "Semestre"
+              },
+              {
+                "name": "Trimestre"
+              },
+              {
+                "name": "Mois"
+              },
+              {
+                "name": "Semaine"
+              },
+              {
+                "name": "Date complète"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Produits",
+        "columns": [
+          {
+            "name": "ProductSubcategoryKey"
+          },
+          {
+            "name": "EnglishProductSubcategoryName"
+          },
+          {
+            "name": "Sous Cat Produits"
+          },
+          {
+            "name": "ProductCategoryKey"
+          },
+          {
+            "name": "ProductKey"
+          },
+          {
+            "name": "EnglishProductName"
+          },
+          {
+            "name": "Libellés Produits"
+          },
+          {
+            "name": "EnglishProductCategoryName"
+          },
+          {
+            "name": "Catégories Produits"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Produits",
+            "levels": [
+              {
+                "name": "Catégories Produits"
+              },
+              {
+                "name": "Sous Cat Produits"
+              },
+              {
+                "name": "Libellés Produits"
+              }
+            ]
+          },
+          {
+            "name": "Products",
+            "levels": [
+              {
+                "name": "EnglishProductCategoryName"
+              },
+              {
+                "name": "EnglishProductSubcategoryName"
+              },
+              {
+                "name": "EnglishProductName"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Régions",
+        "columns": [
+          {
+            "name": "SalesTerritoryKey"
+          },
+          {
+            "name": "Régions"
+          },
+          {
+            "name": "Pays"
+          },
+          {
+            "name": "Groupes Régions"
+          }
+        ]
+      },
+      {
+        "name": "Revendeurs",
+        "columns": [
+          {
+            "name": "ResellerKey"
+          },
+          {
+            "name": "Activités"
+          },
+          {
+            "name": "Revendeurs"
+          },
+          {
+            "name": "AddressLine1"
+          },
+          {
+            "name": "AddressLine2"
+          },
+          {
+            "name": "SalesTerritoryKey"
+          },
+          {
+            "name": "Adresse"
+          }
+        ]
+      },
+      {
+        "name": "Ventes",
+        "columns": [
+          {
+            "name": "ProductKey"
+          },
+          {
+            "name": "Date cde"
+          },
+          {
+            "name": "Date échéance"
+          },
+          {
+            "name": "Date expédition"
+          },
+          {
+            "name": "ResellerKey"
+          },
+          {
+            "name": "N° cde"
+          },
+          {
+            "name": "N° ligne cde"
+          },
+          {
+            "name": "Qté commandée"
+          },
+          {
+            "name": "Coûts produits"
+          },
+          {
+            "name": "Montant ventes HT"
+          },
+          {
+            "name": "Taxes"
+          },
+          {
+            "name": "Transports"
+          },
+          {
+            "name": "OrderDate"
+          },
+          {
+            "name": "DueDate"
+          },
+          {
+            "name": "ShipDate"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Marge Brute",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "Nb ligne cde"
+          },
+          {
+            "name": "Taux de marge",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "Taux de marque",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "Coeff marge",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "YTD Ventes HT"
+          },
+          {
+            "name": "Mt ventes HT exp"
+          },
+          {
+            "name": "YTD vtes HT exp"
+          },
+          {
+            "name": "Ratio Ventes produits"
+          },
+          {
+            "name": "KPI Profit Objectif",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "KPI Profit",
+            "displayFolder": "Marge",
+            "kpi": {}
+          },
+          {
+            "name": "Taux marge nette",
+            "displayFolder": "Marge"
+          },
+          {
+            "name": "KPI Profit Tendance",
+            "displayFolder": "Marge",
+            "kpi": {}
+          },
+          {
+            "name": "Qté expédiée"
+          },
+          {
+            "name": "MT vtes N-1"
+          }
+        ]
+      }
+    ],
+    "perspectives": [
+      {
+        "name": "Logistique"
+      }
+    ],
+    "roles": [
+      {
+        "name": "DirCom",
+        "description": "Accès pour tous les directeurs commerciaux de l'entreprise"
+      },
+      {
+        "name": "CGEurope",
+        "description": "Accès au service contrôle de gestion européen"
+      },
+      {
+        "name": "Logistique",
+        "description": "Accès aux services logistique de toute la société"
+      }
+    ]
+  }
+},
+  "cultures": [
+    {
+  "name": "en-US",
+  "translations": {
+    "model": {
+      "name": "Model",
+      "translatedCaption": "",
+      "translatedDescription": "",
+      "tables": [
+        {
+          "name": "Temps",
+          "translatedCaption": "Time",
+          "translatedDescription": "Time containt the date data like day, month, quarter, week",
+          "columns": [
+            {
+              "name": "Date",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Date complète",
+              "translatedCaption": "Complete date",
+              "translatedDescription": "date format day month and year like 01/01/2018 00:00:00"
+            },
+            {
+              "name": "Semaine",
+              "translatedCaption": "Week",
+              "translatedDescription": "Number of week - example : 3 "
+            },
+            {
+              "name": "SpanishMonthName",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Mois",
+              "translatedCaption": "Month",
+              "translatedDescription": "Whole month - january "
+            },
+            {
+              "name": "N° Mois",
+              "translatedCaption": "Number of month",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Trimestre",
+              "translatedCaption": "Quarter",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Année",
+              "translatedCaption": "Year",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Semestre",
+              "translatedCaption": "Semester",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Trimestre fiscal",
+              "translatedCaption": "Fiscal quarter",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Année fiscale",
+              "translatedCaption": "Fiscal Year",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Semestre fiscal",
+              "translatedCaption": "Fiscal semester",
+              "translatedDescription": ""
+            }
+          ],
+          "hierarchies": [
+            {
+              "name": "Calendrier fiscal",
+              "translatedCaption": "Fiscal calendar",
+              "translatedDescription": "",
+              "levels": [
+                {
+                  "name": "Année fiscale",
+                  "translatedCaption": "Fiscal year",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Semestre fiscal",
+                  "translatedCaption": "Fiscal semester",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Trimestre fiscal",
+                  "translatedCaption": "Fiscal quarter",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Mois",
+                  "translatedCaption": "Month",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Date",
+                  "translatedCaption": "",
+                  "translatedDescription": ""
+                }
+              ]
+            },
+            {
+              "name": "Calendrier",
+              "translatedCaption": "Calendar",
+              "translatedDescription": "",
+              "levels": [
+                {
+                  "name": "Année",
+                  "translatedCaption": "Year",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Semestre",
+                  "translatedCaption": "Semester",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Trimestre",
+                  "translatedCaption": "Quarter",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Mois",
+                  "translatedCaption": "Month",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Semaine",
+                  "translatedCaption": "Week",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Date complète",
+                  "translatedCaption": "Complete date",
+                  "translatedDescription": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Produits",
+          "translatedCaption": "Products",
+          "translatedDescription": "",
+          "columns": [
+            {
+              "name": "ProductSubcategoryKey",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "EnglishProductSubcategoryName",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Sous Cat Produits",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "ProductCategoryKey",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "ProductKey",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "EnglishProductName",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Libellés Produits",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "EnglishProductCategoryName",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Catégories Produits",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            }
+          ],
+          "hierarchies": [
+            {
+              "name": "Produits",
+              "translatedCaption": "",
+              "translatedDescription": "",
+              "levels": [
+                {
+                  "name": "Catégories Produits",
+                  "translatedCaption": "",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Sous Cat Produits",
+                  "translatedCaption": "",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "Libellés Produits",
+                  "translatedCaption": "",
+                  "translatedDescription": ""
+                }
+              ]
+            },
+            {
+              "name": "Products",
+              "translatedCaption": "",
+              "translatedDescription": "",
+              "levels": [
+                {
+                  "name": "EnglishProductCategoryName",
+                  "translatedCaption": "",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "EnglishProductSubcategoryName",
+                  "translatedCaption": "",
+                  "translatedDescription": ""
+                },
+                {
+                  "name": "EnglishProductName",
+                  "translatedCaption": "",
+                  "translatedDescription": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Régions",
+          "translatedCaption": "Regions",
+          "translatedDescription": "",
+          "columns": [
+            {
+              "name": "SalesTerritoryKey",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Régions",
+              "translatedCaption": "Regions",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Pays",
+              "translatedCaption": "Country",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Groupes Régions",
+              "translatedCaption": "Groups Regions",
+              "translatedDescription": ""
+            }
+          ]
+        },
+        {
+          "name": "Revendeurs",
+          "translatedCaption": "Reseller",
+          "translatedDescription": "",
+          "columns": [
+            {
+              "name": "ResellerKey",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Activités",
+              "translatedCaption": "Activity",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Revendeurs",
+              "translatedCaption": "Resellers",
+              "translatedDescription": ""
+            },
+            {
+              "name": "AddressLine1",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "AddressLine2",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "SalesTerritoryKey",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Adresse",
+              "translatedCaption": "Adress",
+              "translatedDescription": ""
+            }
+          ]
+        },
+        {
+          "name": "Ventes",
+          "translatedCaption": "Sales",
+          "translatedDescription": "",
+          "columns": [
+            {
+              "name": "ProductKey",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Date cde",
+              "translatedCaption": "Order date",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Date échéance",
+              "translatedCaption": "Due date",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Date expédition",
+              "translatedCaption": "Ship date",
+              "translatedDescription": ""
+            },
+            {
+              "name": "ResellerKey",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "N° cde",
+              "translatedCaption": "Order number",
+              "translatedDescription": ""
+            },
+            {
+              "name": "N° ligne cde",
+              "translatedCaption": "Order line number",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Qté commandée",
+              "translatedCaption": "Order quantity",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Coûts produits",
+              "translatedCaption": "Products costs",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Montant ventes HT",
+              "translatedCaption": "Sales amount",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Taxes",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Transports",
+              "translatedCaption": "Freight",
+              "translatedDescription": ""
+            },
+            {
+              "name": "OrderDate",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "DueDate",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            },
+            {
+              "name": "ShipDate",
+              "translatedCaption": "",
+              "translatedDescription": ""
+            }
+          ],
+          "measures": [
+            {
+              "name": "Marge Brute",
+              "translatedCaption": "Gross margin",
+              "translatedDescription": "",
+              "translatedDisplayFolder": "Margin"
+            },
+            {
+              "name": "Nb ligne cde",
+              "translatedCaption": "Order lines count",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Taux de marge",
+              "translatedCaption": "Margin rate",
+              "translatedDescription": "",
+              "translatedDisplayFolder": "Margin"
+            },
+            {
+              "name": "Taux de marque",
+              "translatedCaption": "Brand rate",
+              "translatedDescription": "",
+              "translatedDisplayFolder": "Margin"
+            },
+            {
+              "name": "Coeff marge",
+              "translatedCaption": "Margin factor",
+              "translatedDescription": "",
+              "translatedDisplayFolder": "Margin"
+            },
+            {
+              "name": "YTD Ventes HT",
+              "translatedCaption": "YTD sales",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Mt ventes HT exp",
+              "translatedCaption": "Shipped sales amount",
+              "translatedDescription": ""
+            },
+            {
+              "name": "YTD vtes HT exp",
+              "translatedCaption": "Shipped YTD sales",
+              "translatedDescription": ""
+            },
+            {
+              "name": "Ratio Ventes produits",
+              "translatedCaption": "Product sales ratio",
+              "translatedDescription": ""
+            },
+            {
+              "name": "KPI Profit Objectif",
+              "translatedCaption": "KPI Profit Objective",
+              "translatedDescription": "",
+              "translatedDisplayFolder": "Margin"
+            },
+            {
+              "name": "KPI Profit",
+              "translatedCaption": "",
+              "translatedDisplayFolder": "Margin",
+              "kpi": {
+                "translatedDescription": ""
+              }
+            },
+            {
+              "name": "Taux marge nette",
+              "translatedCaption": "Net margin rate",
+              "translatedDescription": "",
+              "translatedDisplayFolder": "Margin"
+            },
+            {
+              "name": "KPI Profit Tendance",
+              "translatedCaption": "Trend Profit KPI",
+              "translatedDisplayFolder": "Margin",
+              "kpi": {
+                "translatedDescription": ""
+              }
+            },
+            {
+              "name": "Qté expédiée",
+              "translatedCaption": "Shipped quantity",
+              "translatedDescription": ""
+            },
+            {
+              "name": "MT vtes N-1",
+              "translatedCaption": "Sales amount N-1",
+              "translatedDescription": ""
+            }
+          ]
+        }
+      ],
+      "perspectives": [
+        {
+          "name": "Logistique",
+          "translatedCaption": "Logistics",
+          "translatedDescription": ""
+        }
+      ]
+    }
+  }
+}
+  ]
+}
